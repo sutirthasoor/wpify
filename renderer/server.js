@@ -3,7 +3,7 @@
 const http = require('http');
 const puppeteer = require('puppeteer');
 
-const TOKEN = process.env.TOKEN || '';
+if (TOKEN && req.headers.authorization !== 'Bearer ' + TOKEN) return send(res, 401, { error: 'Bad token' });
 const PORT = process.env.PORT || 3000;
 const VIEW_W = 1440;
 

@@ -48,8 +48,6 @@ class WPIFY_Admin {
 	public static function ajax_save() {
 		self::guard();
 		update_option( 'wpify_renderer_url', esc_url_raw( trim( wp_unslash( $_POST['renderer_url'] ?? '' ) ) ) );
-		$t = sanitize_text_field( wp_unslash( $_POST['renderer_token'] ?? '' ) );
-		if ( $t !== '' ) update_option( 'wpify_renderer_token', $t );
 		wp_send_json_success( [ 'configured' => WPIFY_Renderer::configured() ] );
 	}
 
@@ -76,12 +74,11 @@ class WPIFY_Admin {
 			<p>Canva &rarr; editable WordPress pages.</p>
 
 			<div class="wpify-card">
-				<h2>Renderer</h2>
-				<p>Canva Websites are drawn by JavaScript, so a headless-browser renderer is required (see <code>renderer/README</code> in the plugin zip).</p>
-				<p><input type="url" id="wpify-r-url" class="large-text" placeholder="https://your-renderer.example.com" value="<?php echo esc_attr( WPIFY_Renderer::url() ); ?>"></p>
-				<p><input type="password" id="wpify-r-token" class="regular-text" placeholder="<?php echo get_option( 'wpify_renderer_token' ) ? 'Token saved (leave blank to keep)' : 'Token'; ?>" autocomplete="new-password">
-				<button class="button" id="wpify-r-save">Save</button> <span id="wpify-r-msg"></span></p>
-			</div>
+    <h2>Renderer</h2>
+    <p>Canva Websites are drawn by JavaScript, so a headless-browser renderer is required (see <code>renderer/README</code> in the plugin zip).</p>
+    <p><input type="url" id="wpify-r-url" class="large-text" placeholder="https://your-renderer.example.com" value="<?php echo esc_attr( WPIFY_Renderer::url() ); ?>">
+    <button class="button" id="wpify-r-save">Save</button> <span id="wpify-r-msg"></span></p>
+</div>
 
 			<div class="wpify-card">
 				<h2>1. Canva link</h2>

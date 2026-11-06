@@ -12,10 +12,9 @@
 	function boxes() { return Array.prototype.slice.call(document.querySelectorAll('#wpify-pages input[type=checkbox]')); }
 
 	$('#wpify-r-save').addEventListener('click', function () {
-		post('wpify_save', { renderer_url: $('#wpify-r-url').value, renderer_token: $('#wpify-r-token').value }).then(function (r) {
-			$('#wpify-r-msg').textContent = r.success ? 'Saved.' : 'Save failed.';
-			$('#wpify-r-token').value = '';
-		});
+post('wpify_save', { renderer_url: $('#wpify-r-url').value }).then(function (r) {
+    $('#wpify-r-msg').textContent = r.success ? 'Saved.' : 'Save failed.';
+});
 	});
 
 	$('#wpify-scan').addEventListener('click', function () {
