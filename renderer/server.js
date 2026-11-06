@@ -1,9 +1,8 @@
 // WPIFY renderer: loads a published Canva site in headless Chrome and returns a layout snapshot.
-// Run:  npm install && TOKEN=yoursecret node server.js     (needs Node 18+)
+// Run:  npm install && node server.js     (needs Node 18+)
 const http = require('http');
 const puppeteer = require('puppeteer');
 
-if (TOKEN && req.headers.authorization !== 'Bearer ' + TOKEN) return send(res, 401, { error: 'Bad token' });
 const PORT = process.env.PORT || 3000;
 const VIEW_W = 1440;
 
@@ -198,7 +197,7 @@ const send = (res, code, obj) => { res.writeHead(code, { 'Content-Type': 'applic
 http.createServer((req, res) => {
   if (req.url === '/health') return send(res, 200, { ok: true });
   if (req.method !== 'POST' || req.url !== '/snapshot') return send(res, 404, { error: 'Not found' });
-  if (TOKEN && req.headers.authorization !== 'Bearer ' + TOKEN) return send(res, 401, { error: 'Bad token' });
+  // Auth removed — TOKEN is no longer read or checked.
   let body = '';
   req.on('data', (c) => { body += c; if (body.length > 1e5) req.destroy(); });
   req.on('end', async () => {
